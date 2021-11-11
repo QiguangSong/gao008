@@ -31,13 +31,13 @@ class gao_message(object):
             soup = BeautifulSoup(gao_response.content, 'html.parser', from_encoding="gb18030")
             soup.prettify()
             tr_list = soup.select('div[class*="trcolor"]')
-            print(len(tr_list))
+
             for tr_elem in tr_list:
                 tr_elem_str = tr_elem.text
                 message_content_str = tr_elem_str.split("【")[0]
                 message_provider = tr_elem_str.split("【")[-1].split("】")[0]
                 message_time = tr_elem_str.split("【")[-1].split("】")[1]
-                print(message_time)
+
         return message_content_str, message_provider, message_time
 
 class Test(unittest.TestCase):
