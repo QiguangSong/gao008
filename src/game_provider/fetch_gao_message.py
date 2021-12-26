@@ -33,7 +33,7 @@ class gao_message(object):
             tr_list = soup.select('ul')
 
             tr_elem_str = tr_list[0]
-            gao_file = open('../hslj.html', 'wb')
+            gao_file = open('../../hslj.html', 'wb')
             gao_file.write(tr_elem_str.contents)
             gao_file.close()
             message_content_str = tr_elem_str.split("【")[0]
