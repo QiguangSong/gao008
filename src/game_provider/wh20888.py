@@ -6,11 +6,11 @@ import requests as requests
 import unittest
 from bs4 import BeautifulSoup
 
-class gao_message(object):
+class wh_message(object):
     '''
-    This module provides gao008 functions
+    This module provides wuhu20888 functions
     '''
-    game_base_url = "https://bbs.hszqb2.com/bbs-1.html"
+    game_base_url = "https://wh20888.com/"
 
     def __init__(self):
         '''
@@ -21,36 +21,30 @@ class gao_message(object):
     def __del__(self):
         return
 
-    def get_gao008_message(self):
-        gao_response = requests.get(self.game_base_url)
-        gao_response = gao_response
-        if gao_response.status_code == 200:
-            # gao_file = open('../gao888.html', 'wb')
-            # gao_file.write(gao_response.content)
-            # gao_file.close()
-            soup = BeautifulSoup(gao_response.content, 'html.parser', from_encoding="gb18030")
+    def get_wh_message(self):
+        wh_response = requests.get(self.game_base_url)
+        wh_response = wh_response
+        if wh_response.status_code == 200:
+            soup = BeautifulSoup(wh_response.content, 'html.parser', from_encoding="gb18030")
             soup.prettify()
-            tr_list = soup.select('ul')
+            ul_table = soup.find('ul')
+            li_list = ul_table.find_all('li')
 
-            tr_elem_str = tr_list[0]
-            gao_file = open('../../hslj.html', 'wb')
-            gao_file.write(tr_elem_str.contents)
-            gao_file.close()
-            message_content_str = tr_elem_str.split("【")[0]
-            message_provider = tr_elem_str.split("【")[-1].split("】")[0]
-            message_time = tr_elem_str.split("【")[-1].split("】")[1]
+            for li_item in li_list:
+                if len(li_item.contents) == 5:
 
-        return message_content_str, message_provider, message_time
+                    print(li_item.contents[2])
+        return li_list
 
 class Test(unittest.TestCase):
 
     def setUp(self):
-        self.test_obj = gao_message()
+        self.test_obj = wh_message()
 
     def tearDown(self):
         self.test_obj = None
         return
 
-    def test_get_gao008_message(self):
-        self.test_obj.get_gao008_message()
+    def test_get_wuhu_message(self):
+        self.test_obj.get_wh_message()
         return
