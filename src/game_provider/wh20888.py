@@ -31,9 +31,12 @@ class wh_message(object):
             li_list = ul_table.find_all('li')
 
             for li_item in li_list:
-                if len(li_item.contents) == 5:
-
-                    print(li_item.contents[2])
+                if len(li_item.contents) >= 5:
+                    wh_message_provider =  li_item.contents[-3].contents[0]
+                    wh_message_time =  li_item.contents[-2].replace('】', '')
+                    wh_message_text =  li_item.contents[-5].contents[0]
+                    wh_message_link =  li_item.contents[-5].attrs['href']
+                    print(wh_message_text)
         return li_list
 
 class Test(unittest.TestCase):
