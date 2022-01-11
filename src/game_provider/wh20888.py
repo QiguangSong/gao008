@@ -5,6 +5,7 @@ Created on 3 Aug 2021
 import requests as requests
 import unittest
 from bs4 import BeautifulSoup
+from ..utils import util_time
 
 class wh_message(object):
     '''
@@ -36,7 +37,7 @@ class wh_message(object):
                     wh_message_time =  li_item.contents[-2].replace('】', '')
                     wh_message_text =  li_item.contents[-5].contents[0]
                     wh_message_link =  li_item.contents[-5].attrs['href']
-                    print(wh_message_text)
+                    print(wh_message_time)
         return li_list
 
 class Test(unittest.TestCase):
