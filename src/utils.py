@@ -1,21 +1,21 @@
-import time
+import datetime
+import re
 
-class util_time(object):
-    '''
-    This module provides usefule functions
-    '''
-    game_base_url = "https://wh20888.com/"
+game_base_url = "https://wh20888.com/"
 
-    def __init__(self):
-        '''
-        Constructor
-        '''
-        return
 
-    def __del__(self):
-        return
+def __init__(self):
+    """
+    Constructor
+    """
 
-    def convert_time_to_epoch(self):
+    return
 
-        epoch_time = 101
-        return epoch_time
+
+def __del__(self):
+    return
+
+
+def convert_time_to_int(time_str):
+    time_int = int(re.sub(r'[^\w]', ' ', time_str).replace(' ',''))
+    return time_int
