@@ -4,3 +4,4 @@ protobuf
 selenium
 six
 urllib3
+psycopg2
