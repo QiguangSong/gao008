@@ -5,3 +5,4 @@ selenium
 six
 urllib3
 psycopg2
+lxml
