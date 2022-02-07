@@ -19,7 +19,7 @@ class wh_message(object):
         Constructor
         '''
         self.postgre_conn = psycopg2.connect(
-            host="192.168.31.202",
+            host="192.168.31.203",
             database="qwin",
             user="postgres",
             password="admin")
@@ -75,7 +75,7 @@ class wh_message(object):
                     wh_message['wh_message_text'] =  li_item.contents[-5].contents[0]
                     wh_message['wh_message_link'] =  li_item.contents[-5].attrs['href']
                     self.add_user_to_db(wh_message['wh_message_provider'])
-                    self.add_message_to_db(wh_message)
+                    # self.add_message_to_db(wh_message)
 
             self.postgre_conn.commit()
             self.postgre_conn.close()
