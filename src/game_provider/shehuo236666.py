@@ -22,12 +22,12 @@ class sh_message(object):
         '''
         Constructor
         '''
-        self.postgre_conn = psycopg2.connect(
-            host="192.168.31.203",
-            database="qwin",
-            user="postgres",
-            password="admin")
-        self.postgre_cur = self.postgre_conn.cursor()
+        # self.postgre_conn = psycopg2.connect(
+        #     host="192.168.31.203",
+        #     database="qwin",
+        #     user="postgres",
+        #     password="admin")
+        # self.postgre_cur = self.postgre_conn.cursor()
         return
 
     def __del__(self):
@@ -68,13 +68,14 @@ class sh_message(object):
         if sh_response.status_code == 200:
             soup = BeautifulSoup(sh_response.content, 'html.parser', from_encoding="gb18030")
             soup.prettify()
-            tbody_table = soup.select('body > table:nth-child(8) > tbody')
+            tbody_table = soup.select('body > table:nth-child(8)')
 
 
-            li_list = tbody_table.find_all('li')
+            li_list = tbody_table[0].find_all('li')
+            print (len(li_list))
             sh_message = {}
             for li_item in li_list:
-                if len(li_item.contents) >= 5:
+                if len(li_item.contents) >= 2:
                     sh_message['sh_message_provider'] =  li_item.contents[-3].contents[0]
                     sh_message['sh_message_time'] =  li_item.contents[-2].replace('】', '')
                     sh_message['sh_message_time_int'] = utils.convert_time_to_int(sh_message['sh_message_time'])
