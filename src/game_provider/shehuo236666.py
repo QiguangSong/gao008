@@ -85,7 +85,7 @@ class sh_message(object):
                     print(sh_message)
 
                     # self.add_user_to_db(sh_message['sh_message_provider'])
-                    # self.add_message_to_db(sh_message)
+                    ????self.add_message_to_db(sh_message)
 
             self.postgre_conn.commit()
             self.postgre_conn.close()
