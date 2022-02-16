@@ -88,7 +88,6 @@ class sh_message(object):
                     sh_message['sh_message_link'] = li_item.contents[-2].attrs['href']
                     sh_message['platform'] = "sheHuo"
                     
-
                     self.add_user_to_db(sh_message['sh_message_provider'])
                     self.add_message_to_db(sh_message)
 
