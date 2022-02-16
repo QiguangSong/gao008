@@ -22,12 +22,12 @@ class sh_message(object):
         '''
         Constructor
         '''
-        # self.postgre_conn = psycopg2.connect(
-        #     host="192.168.31.203",
-        #     database="qwin",
-        #     user="postgres",
-        #     password="admin")
-        # self.postgre_cur = self.postgre_conn.cursor()
+        self.postgre_conn = psycopg2.connect(
+            host="192.168.31.158",
+            database="qwin",
+            user="postgres",
+            password="admin")
+        self.postgre_cur = self.postgre_conn.cursor()
         return
 
     def __del__(self):
@@ -35,7 +35,7 @@ class sh_message(object):
 
     def add_message_to_db (self, message):
 
-        user_name = message.get('sh_message_provider') + "_sh"
+        user_name = message.get('sh_message_provider') + "_sH"
         print(user_name)
         sql = """SELECT user_id FROM users WHERE user_name = %s;				
                 """
@@ -45,16 +45,16 @@ class sh_message(object):
 
         sql = """INSERT INTO messages (user_id, message_time, message_content, message_link)
                  SELECT %s, %s, %s, %s
-                 WHERE NOT EXISTS (SELECT * FROM messages WHERE user_id = % AND message_time = %s);
+                 WHERE NOT EXISTS (SELECT * FROM messages WHERE user_id = %s AND message_time = %s);
                  """
-        self.postgre_cur.execute(sql, (user_id, message.get('sh_message_time'), message.get('sh_message_text'),
-                                       message.get('sh_message_link'), user_id, message.get('sh_message_time') ))
+        self.postgre_cur.execute(sql, (user_id_int, str(message.get('sh_message_time')), message.get('sh_message_text'),
+                                       message.get('sh_message_link'), user_id_int, str(message.get('sh_message_time')) ))
         # user_records = cur.fetchall()
         # print('user_records')
         return
 
     def add_user_to_db(self, user_name):
-        user_name = user_name + "_sh"
+        user_name = user_name + "_sH"
         sql = """INSERT INTO users (user_name, notification) 
                 SELECT %s, false
                 WHERE NOT EXISTS (SELECT * FROM users WHERE user_name = %s);				
@@ -84,8 +84,8 @@ class sh_message(object):
                     sh_message['sh_message_link'] = li_item.contents[-2].attrs['href']
                     print(sh_message)
 
-                    # self.add_user_to_db(sh_message['sh_message_provider'])
-                    ????self.add_message_to_db(sh_message)
+                    self.add_user_to_db(sh_message['sh_message_provider'])
+                    self.add_message_to_db(sh_message)
 
             self.postgre_conn.commit()
             self.postgre_conn.close()
