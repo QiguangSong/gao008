@@ -2,6 +2,7 @@
 Created on 3 Aug 2021
 @author: qsong
 '''
+from datetime import datetime
 import requests as requests
 import unittest
 from bs4 import BeautifulSoup
@@ -77,11 +78,15 @@ class sh_message(object):
             for li_item in li_list:
                 if len(li_item.contents) >= 2:
                     user_time = li_item.contents[-1]
-                    sh_message['sh_message_time'] = "2022" + user_time.split('】')[1]
+
+                    time_str = ("2022-" + user_time.split('】 ')[1] + " :00")
+                    sh_message['sh_message_time'] = datetime.strptime(time_str, '%Y-%m-%d %H:%M  :%S').strftime("%Y%m%d%H%M%S")
+
                     sh_message['sh_message_time_int'] =utils.convert_time_to_int(sh_message['sh_message_time'])
                     sh_message['sh_message_provider'] = user_time.split('】')[0].replace('【', '').replace(' ', '')
                     sh_message['sh_message_text'] = li_item.contents[-2].contents[0]
                     sh_message['sh_message_link'] = li_item.contents[-2].attrs['href']
+                    sh_message['platform'] = "sheHuo"
                     print(sh_message)
 
                     self.add_user_to_db(sh_message['sh_message_provider'])
