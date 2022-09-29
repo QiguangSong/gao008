@@ -6,6 +6,7 @@ import requests as requests
 import unittest
 from bs4 import BeautifulSoup
 
+
 class huanshan_message(object):
     '''
     This module provides huanshan functions
@@ -23,19 +24,21 @@ class huanshan_message(object):
 
     def get_huashan_message(self):
         huanshan_response = requests.get(self.game_base_url)
-        huanshan_response = huanshano_response
         if huanshan_response.status_code == 200:
             soup = BeautifulSoup(huanshan_response.content, 'html.parser', from_encoding="gb18030")
             soup.prettify()
             ul_table = soup.find('ul')
             li_list = ul_table.find_all('li')
-
             for li_item in li_list:
-                if len(li_item.contents) > 3:
-
-                    print(li_item.contents[2])
+                print("li_item.contents = " + str(len(li_item.contents)))
+                if len(li_item.contents) > 3 and :
+                    print("time" + li_item.contents[-2].text)  # time
+                    print("name" + li_item.contents[-3].text)  # name
+                    print("message" + li_item.contents[-5].text)  # message
+                    print("---------------")
 
         return li_list
+
 
 class Test(unittest.TestCase):
 
