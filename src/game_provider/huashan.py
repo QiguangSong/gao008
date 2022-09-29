@@ -5,6 +5,7 @@ Created on 3 Aug 2021
 import requests as requests
 import unittest
 from bs4 import BeautifulSoup
+import re
 
 
 class huanshan_message(object):
@@ -12,6 +13,7 @@ class huanshan_message(object):
     This module provides huanshan functions
     '''
     game_base_url = "https://bbs.hszqb2.com/bbs-1.html"
+    FAV_LIST = ["华山小仙女", "东北球王"]
 
     def __init__(self):
         '''
@@ -30,13 +32,15 @@ class huanshan_message(object):
             ul_table = soup.find('ul')
             li_list = ul_table.find_all('li')
             for li_item in li_list:
-                print("li_item.contents = " + str(len(li_item.contents)))
-                if len(li_item.contents) > 3 and :
-                    print("time" + li_item.contents[-2].text)  # time
-                    print("name" + li_item.contents[-3].text)  # name
-                    print("message" + li_item.contents[-5].text)  # message
-                    print("---------------")
-
+                if len(li_item.contents) > 3:
+                    game_time = ''.join(re.findall(r'[0-9]+', li_item.contents[-2].text))
+                    game_name = li_item.contents[-3].text
+                    game_message = li_item.contents[-5].text
+                    if game_name in self.FAV_LIST:
+                        print("time = " + game_time)  # time
+                        print("name = " + game_name)  # name
+                        print("message = " + game_message)  # message
+                        print("---------------")
         return li_list
 
 
