@@ -2,6 +2,8 @@
 Created on 3 Aug 2021
 @author: qsong
 '''
+from datetime import datetime, timedelta
+
 import requests as requests
 import unittest
 from bs4 import BeautifulSoup
@@ -31,15 +33,19 @@ class huanshan_message(object):
             soup.prettify()
             ul_table = soup.find('ul')
             li_list = ul_table.find_all('li')
+            now = datetime.now() - timedelta(hours=6, minutes=10)
+
+            now_int = int(now.strftime("%Y%m%d%H%M%S"))
+            print("date and time ==========================", str(now_int))
             for li_item in li_list:
                 if len(li_item.contents) > 3:
-                    game_time = ''.join(re.findall(r'[0-9]+', li_item.contents[-2].text))
+                    message_time = int(''.join(re.findall(r'[0-9]+', li_item.contents[-2].text)))
                     game_name = li_item.contents[-3].text
-                    game_message = li_item.contents[-5].text
-                    if game_name in self.FAV_LIST:
-                        print("time = " + game_time)  # time
+                    message_context = li_item.contents[-5].text
+                    if game_name in self.FAV_LIST and message_time > now_int:
+                        print("time = " + str(message_time))  # time
                         print("name = " + game_name)  # name
-                        print("message = " + game_message)  # message
+                        print("message = " + message_context)  # message
                         print("---------------")
         return li_list
 
