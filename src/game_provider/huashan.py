@@ -43,7 +43,7 @@ class huanshan_message(object):
                     game_name = li_item.contents[-3].text
                     message_context = li_item.contents[-5].text
                     if game_name in self.FAV_LIST and message_time > now_int:
-                        print("time = " + str(message_time))  # time
+                        
                         print("name = " + game_name)  # name
                         print("message = " + message_context)  # message
                         print("---------------")
