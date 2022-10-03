@@ -62,3 +62,6 @@ class Test(unittest.TestCase):
     def test_get_huanshan_message(self):
         self.test_obj.get_huashan_message()
         return
+    def test_get_huanshan_message1(self):
+        self.test_obj.get_huashan_message()
+        return
